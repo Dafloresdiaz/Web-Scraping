@@ -11,4 +11,9 @@ from bs4 import BeautifulSoup as BS
 url = 'https://www.transfermarkt.com/unam-pumas/spielplan/verein/7633/plus/1?saison_id=2008'
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'}
 page = requests.get(url, headers = headers)
-print (page)
+content = page.content
+soup_Parser = BS(content,'html.parser')
+
+#Find the element for the table, it would be the DIV element
+results = soup_Parser.find_all('div', class_='responsive-table')
+print(len(results))
