@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup as BS
 
 class obtain_html_pages_info:
 
+    #The __init__ funtion is the constructor of the class, what does it mean?
+    #It means that every time you do a intance of the class it will begin with this function
     def __init__(self):
         self.url = 'https://www.transfermarkt.com/unam-pumas/spielplan/verein/7633/plus/1?saison_id=2010'
 
