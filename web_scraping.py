@@ -6,17 +6,13 @@
 import requests
 import urllib.request
 from bs4 import BeautifulSoup as BS
+from obtain_html_pages import obtain_html_pages_info as obt
 
-
-# Make a get request for the URL.
-url = 'https://www.transfermarkt.com/unam-pumas/spielplan/verein/7633/plus/1?saison_id=2010'
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'}
-page = requests.get(url, headers = headers)
-content = page.content
-soup_Parser = BS(content,'html.parser')
+#Make the call to the function to make the request to the url(s) and generate the HTML files.
+html_Content = obt()
 
 #Find the element for the table, it would be the DIV element
-results = soup_Parser.find_all('div', class_='responsive-table')
+results = html_Content.get_Content().find_all('div', class_='responsive-table')
 
 #Created a HTML file with the results from the page. I suggest to change this functionality to another file to have this functionality separete from the
 #principal objetive of this.
