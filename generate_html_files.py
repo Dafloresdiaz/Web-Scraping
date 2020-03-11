@@ -26,3 +26,5 @@ class generate_html_files:
             create_file = open('Results_Page_Content'+ str(i) + '.html', 'w')
             create_file.write(str(self.results))
             create_file.close()
+
+            #TODO Make the function return the results for each page
