@@ -23,3 +23,9 @@ class obtain_html_pages_info:
         self.soup_Parser = BS(self.content, 'html.parser')
         
         return self.soup_Parser
+    
+    def get_Local_Content(self, year : str):
+        #Make the request to the local page
+        self.soup_Parser = BS(open("Results_Page_Content" + year + ".html"), 'html.parser')
+
+        return self.soup_Parser

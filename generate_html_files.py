@@ -20,8 +20,8 @@ class generate_html_files:
         #This for will obtain the information for every season of pumas, from 2010 to 2020, 
         for i in tqdm(range(start_year, end_year)):
 
-            #TODO Create a progress bar to know the fucntion just finish the creation of the files.
-
+            #TODO Create a condition to check if the page is already created, in order to do just the necessary pages
+            #TODO this would help us improve the use of the program.
             #Find the element for the table, it would be the DIV element
             self.results = self.html_Content.get_Content(str(i)).find_all('div', class_='responsive-table')
     
@@ -30,7 +30,10 @@ class generate_html_files:
             create_file.write(str(self.results))
             create_file.close()
             print("Process to obtain the HTML files:")
-            print("", end='\r')
+            print(" ", end='\r')
+            
+            #After we have the local files que need to work with them
+            self.results_Local = self.html_Content.get_Local_Content(str(i)).find_all('div', class_='responsive-table')
 
             #Call the function to obtain the info from the pages
-            self.section.obtain_time(self.results)
+            self.section.obtain_time(self.results_Local)
