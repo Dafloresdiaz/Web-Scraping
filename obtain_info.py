@@ -20,7 +20,7 @@ class obtain_info_from_sections:
             for y in range(int(len(self.time))):
                 if self.x < int(len(self.time)):
                     self.text = self.time[self.x].getText()
-                    print(self.text)
+                    #print(self.text)
                     # ! The range is always 1 + 7 = 8 this equal to the next field
                     self.x = self.x + 7
                 else:
