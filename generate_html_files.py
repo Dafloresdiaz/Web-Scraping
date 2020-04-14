@@ -6,6 +6,7 @@
 from obtain_html_pages import obtain_html_pages_info as OBH
 from obtain_info import obtain_info_from_sections as OBT
 from tqdm.auto import tqdm
+import os.path
 
 class generate_html_files:
 
@@ -18,19 +19,29 @@ class generate_html_files:
     
     def create_Files(self, start_year : int, end_year : int):
         #This for will obtain the information for every season of pumas, from 2010 to 2020, 
+        print("Process to obtain the HTML files:")
+
         for i in tqdm(range(start_year, end_year)):
-
-            #TODO Create a progress bar to know the fucntion just finish the creation of the files.
-
-            #Find the element for the table, it would be the DIV element
-            self.results = self.html_Content.get_Content(str(i)).find_all('div', class_='responsive-table')
-    
-            #Created a HTML file with the results from the results, this results have the table with the info
-            create_file = open('Results_Page_Content'+ str(i) + '.html', 'w')
-            create_file.write(str(self.results))
-            create_file.close()
-            print("Process to obtain the HTML files:")
             print("", end='\r')
 
-            #Call the function to obtain the info from the pages
-            self.section.obtain_time(self.results)
+            if os.path.isfile("Results_page_Content" + str(i) + ".html"):
+                #print("File exist")
+
+                #After we have the local files que need to work with them
+                self.results_Local = self.html_Content.get_Local_Content(str(i)).find_all('div', class_='responsive-table')
+
+                #Call the function to obtain the info from from pages
+                self.section.obtain_time(self.results_Local)
+
+            else:
+                #print("File does not exist")
+                
+                #Find the element for the table, it would be the DIV element
+                self.results = self.html_Content.get_Content(str(i)).find_all('div', class_='responsive-table')
+        
+                #Created a HTML file with the results from the results, this results have the table with the info
+                create_file = open('Results_Page_Content'+ str(i) + '.html', 'w')
+                create_file.write(str(self.results))
+                create_file.close()
+                #Call the function to obtain the info from the pages
+                self.section.obtain_time(self.results) 
