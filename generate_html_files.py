@@ -33,6 +33,7 @@ class generate_html_files:
                 #Call the function to obtain the info from from pages
                 self.section.obtain_Date(self.results_Local)
                 self.section.obtain_Time(self.results_Local)
+                self.section.obtain_Home_Team_Name(self.results_Local)
 
             else:
                 #print("File does not exist")
@@ -47,3 +48,4 @@ class generate_html_files:
                 #Call the function to obtain the info from the pages
                 self.section.obtain_Date(self.results) 
                 self.section.obtain_Time(self.results)
+                self.section.obtain_Home_Team_Name(self.results)
