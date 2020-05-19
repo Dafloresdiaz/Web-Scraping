@@ -56,3 +56,4 @@ class generate_html_files:
                 self.section.obtain_Vistit_Team_Name(self.results)
                 self.section.obtain_Game_Plan(self.results)
                 self.section.obtain_Coach(self.results)
+                self.section.obtain_Score(self.results)
