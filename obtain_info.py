@@ -12,6 +12,7 @@ class obtain_info_from_sections:
         self.w = 0
         self.z = 0
         self.a = 0
+        self.b = 0
 
 
 
@@ -86,8 +87,19 @@ class obtain_info_from_sections:
             for coachID in range(int(len(self.coach))):
                 if self.a < int(len(self.coach)):
                     self.text_Coach = self.coach[self.a].getText()
-                    print(self.text_Coach)
                     self.a = self.a + 1
+                else:
+                    break
+
+    def obtain_Score(self, results):
+        for i in range(int(len(results))):
+            self.score = results[i].find_all('a', title="Match report")
+            self.b = 0
+            for scoreArray in range(int(len(self.score))):
+                if self.a < int(len(self.score)):
+                    self.text_Score = self.score[self.a].getText()
+                    print(self.text_Score)
+                    self.b = self.b + 1
                 else:
                     break
 
