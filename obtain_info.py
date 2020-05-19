@@ -7,10 +7,12 @@
 class obtain_info_from_sections:
 
     def __init__(self):
-        self.x = 1
-        self.y = 2
-        #Is 1 because Im looking at a different tag to obtian the home team name
+        self.x = 0
+        self.y = 0
+        self.w = 0
         self.z = 0
+        self.a = 0
+
 
 
     def obtain_Date(self, results):
@@ -49,11 +51,11 @@ class obtain_info_from_sections:
             for homeTeamName in range(int(len(self.homeTeam))):
                 if self.z < int(len(self.homeTeam)):
                     self.text_Home_Team = self.homeTeam[self.z].getText()
-                    print(self.text_Home_Team)
                     self.z = self.z + 4
                 else:
                     break
     
+    #obtain the Away team
     def obtain_Vistit_Team_Name(self, results):
         for i in range(int(len(results))):
             self.visitTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
@@ -61,8 +63,31 @@ class obtain_info_from_sections:
             for visitTeamName in range(int(len(self.visitTeam))):
                 if self.z < int(len(self.visitTeam)):
                     self.text_Visit_Team = self.visitTeam[self.z].getText()
-                    #print(self.text_Visit_Team)
                     self.z = self.z + 4
+                else:
+                    break
+
+    #Obtain the Game plan
+    def obtain_Game_Plan(self, results):
+         for i in range(int(len(results))):
+            self.gamePlan = results[i].find_all('td', class_='zentriert')
+            self.w = 5
+            for gamePlanID in range(int(len(self.gamePlan))):
+                if self.w < int(len(self.gamePlan)):
+                    self.text_Game_Plan = self.gamePlan[self.w].getText()
+                    self.w = self.w + 7
+                else:
+                    break
+    
+    def obtain_Coach(self, results):
+         for i in range(int(len(results))):
+            self.coach = results[i].find_all('a', id='0')
+            self.a = 0
+            for coachID in range(int(len(self.coach))):
+                if self.a < int(len(self.coach)):
+                    self.text_Coach = self.coach[self.a].getText()
+                    print(self.text_Coach)
+                    self.a = self.a + 1
                 else:
                     break
 
