@@ -9,6 +9,5 @@ from generate_html_files import generate_html_files as CF
 #*You need to have a variable to create the object and this object will have the fields
 #Call the funtion to obtain the HTML files, the attributes are the years(start year and end year) for the season.
 generate_Files = CF()
+
 generate_Files.create_Files(2010, 2020)
-
-

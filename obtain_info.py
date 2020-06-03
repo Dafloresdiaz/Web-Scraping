@@ -3,7 +3,6 @@
 #Home team, Visitors team and the results
 #The main goal is to obtain the correct info from the html page
 
-
 class obtain_info_from_sections:
 
     def __init__(self):
@@ -84,7 +83,7 @@ class obtain_info_from_sections:
          for i in range(int(len(results))):
             self.coach = results[i].find_all('a', id='0')
             self.a = 0
-            for coachID in range(int(len(self.coach))):
+            for _ in range(int(len(self.coach))):
                 if self.a < int(len(self.coach)):
                     self.text_Coach = self.coach[self.a].getText()
                     self.a = self.a + 1
@@ -98,7 +97,6 @@ class obtain_info_from_sections:
             for scoreArray in range(int(len(self.score))):
                 if self.a < int(len(self.score)):
                     self.text_Score = self.score[self.a].getText()
-                    print(self.text_Score)
                     self.b = self.b + 1
                 else:
                     break
