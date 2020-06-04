@@ -6,4 +6,20 @@ from connection_db import connection_to_database as CTDB
 class create_queries:
 
     def __init__(self):
-        connection = CTDB()
+        self.db = CTDB()
+        self.connection = self.db.create_Connection()
+        self.querie = self.connection.cursor()
+
+    def insert_coaches(self, coachName):
+        self.querie.execute("SELECT COUNT(*) FROM coaches WHERE coach_Name = '%s'" % (coachName))
+        result = self.querie.fetchone()[0]
+        if result == 0:
+            self.querie.execute("INSERT INTO coaches(coach_Name) VALUES('%s')" % (coachName))
+            self.connection.commit()
+    
+    def insert_teams(self, teamName):
+        self.querie.execute("SELECT COUNT(*) FROM teams WHERE team_Name = '%s'" % (teamName))
+        result = self.querie.fetchone()[0]
+        if result == 0:
+            self.querie.execute("INSERT INTO teams(team_Name) VALUES('%s')" % (teamName))
+            self.connection.commit()

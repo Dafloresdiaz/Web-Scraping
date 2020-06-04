@@ -3,9 +3,12 @@
 #Home team, Visitors team and the results
 #The main goal is to obtain the correct info from the html page
 
+from created_queries import create_queries as CQ
+
 class obtain_info_from_sections:
 
     def __init__(self):
+        self.database = CQ()
         self.x = 0
         self.y = 0
         self.w = 0
@@ -45,25 +48,29 @@ class obtain_info_from_sections:
     
     #obtain the home team name
     def obtain_Home_Team_Name(self, results):
+        self.x = 0
         for i in range(int(len(results))):
             self.homeTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
-            self.z = 1
-            for homeTeamName in range(int(len(self.homeTeam))):
-                if self.z < int(len(self.homeTeam)):
-                    self.text_Home_Team = self.homeTeam[self.z].getText()
-                    self.z = self.z + 4
+            self.x = 1
+            for _ in range(int(len(self.homeTeam))):
+                if self.x < int(len(self.homeTeam)):
+                    self.text_Home_Team = self.homeTeam[self.x].getText()
+                    self.database.insert_teams(self.text_Home_Team)
+                    self.x = self.x + 4
                 else:
                     break
     
     #obtain the Away team
     def obtain_Vistit_Team_Name(self, results):
+        self.x = 0
         for i in range(int(len(results))):
             self.visitTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
-            self.z = 3
-            for visitTeamName in range(int(len(self.visitTeam))):
-                if self.z < int(len(self.visitTeam)):
-                    self.text_Visit_Team = self.visitTeam[self.z].getText()
-                    self.z = self.z + 4
+            self.x = 3
+            for _ in range(int(len(self.visitTeam))):
+                if self.x < int(len(self.visitTeam)):
+                    self.text_Visit_Team = self.visitTeam[self.x].getText()
+                    self.database.insert_teams(self.text_Visit_Team)
+                    self.x = self.x + 4
                 else:
                     break
 
@@ -86,6 +93,7 @@ class obtain_info_from_sections:
             for _ in range(int(len(self.coach))):
                 if self.a < int(len(self.coach)):
                     self.text_Coach = self.coach[self.a].getText()
+                    self.database.insert_coaches(self.text_Coach)
                     self.a = self.a + 1
                 else:
                     break
