@@ -25,9 +25,11 @@ class create_queries:
             self.connection.commit()
 
     def insert_game_plan(self, planStrategy):
-        if len(planStrategy) > 1:
-            self.querie.execute("SELECT COUNT(*) FROM game_plan WHERE gamePlan = '%s'" % (planStrategy))
+        wotSpaces = planStrategy.lstrip()
+        wotSpaces = wotSpaces.rstrip()
+        if len(wotSpaces) > 1:
+            self.querie.execute("SELECT COUNT(*) FROM game_plan WHERE gamePlan = '%s'" % (wotSpaces))
             result = self.querie.fetchone()[0]
             if result == 0:
-                self.querie.execute("INSERT INTO game_plan(gamePlan) VALUES('%s')" % (planStrategy))
+                self.querie.execute("INSERT INTO game_plan(gamePlan) VALUES('%s')" % (wotSpaces))
                 self.connection.commit()
