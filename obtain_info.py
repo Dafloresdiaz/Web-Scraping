@@ -1,8 +1,9 @@
-#The purpose of this function is to obtain the info from the html pages.
+#The purpose of this function is to obtain the info fro7m the html pages.
 #In this case we can obtain the info from the pages like, date, time of the match,
 #Home team, Visitors team and the results
 #The main goal is to obtain the correct info from the html page
 
+from datetime import datetime as dt
 from created_queries import create_queries as CQ
 
 class obtain_info_from_sections:
@@ -11,12 +12,6 @@ class obtain_info_from_sections:
         self.database = CQ()
         self.x = 0
         self.y = 0
-        self.w = 0
-        self.z = 0
-        self.a = 0
-        self.b = 0
-
-
 
     def obtain_Date(self, results):
         #The table can be read it by manual calculation, if you go to the *.html, the td where the 
@@ -25,7 +20,7 @@ class obtain_info_from_sections:
         for i in range(int(len(results))):
             self.date = results[i].find_all('td', class_='zentriert')
             self.x = 1
-            for position in range(int(len(self.date))):
+            for _ in range(int(len(self.date))):
                 if self.x < int(len(self.date)):
                     self.text = self.date[self.x].getText()
                     # ! The range is always 1 + 7 = 8 this equal to the next field
@@ -38,11 +33,11 @@ class obtain_info_from_sections:
         #data is storage the posistion is updated by 7
         for i in range(int(len(results))):
             self.time = results[i].find_all('td', class_='zentriert')
-            self.y = 2
-            for position in range(int(len(self.time))):
-                if self.y < int(len(self.time)):
-                    self.text_Time = self.time[self.y].getText()
-                    self.y = self.y + 7
+            self.x = 2
+            for _ in range(int(len(self.time))):
+                if self.x < int(len(self.time)):
+                    self.text_Time = self.time[self.x].getText()
+                    self.x = self.x + 7
                 else:
                     break
     
@@ -89,31 +84,44 @@ class obtain_info_from_sections:
                     break
     
     def obtain_Coach(self, results):
+         self.x = 0
          for i in range(int(len(results))):
             self.coach = results[i].find_all('a', id='0')
-            self.a = 0
+            self.x = 0
             for _ in range(int(len(self.coach))):
-                if self.a < int(len(self.coach)):
-                    self.text_Coach = self.coach[self.a].getText()
+                if self.x < int(len(self.coach)):
+                    self.text_Coach = self.coach[self.x].getText()
                     self.database.insert_coaches(self.text_Coach)
-                    self.a = self.a + 1
+                    self.x = self.x + 1
                 else:
                     break
 
     def obtain_Score(self, results):
+        self.x = 0
         for i in range(int(len(results))):
             self.score = results[i].find_all('a', title="Match report")
-            self.b = 0
+            self.x = 0
             for scoreArray in range(int(len(self.score))):
-                if self.a < int(len(self.score)):
-                    self.text_Score = self.score[self.a].getText()
-                    self.b = self.b + 1
+                if self.x < int(len(self.score)):
+                    self.text_Score = self.score[self.x].getText()
+                    self.x = self.x + 1
                 else:
                     break
 
-            
-
-
-
-
+    def obtainAllInfo(self, results):
+        self.x = 0
+        self.y = 0
+        for i in range(int(len(results))):
+            self.dateTimeTags = results[i].find_all('td', class_='zentriert')
+            self.x = 1
+            self.y = 2
+            for _ in range(int(len(self.dateTimeTags))):
+                if (self.x < int(len(self.dateTimeTags))) and (self.y < int(len(self.dateTimeTags))):
+                    self.date = self.dateTimeTags[self.x].getText()
+                    self.dateTime = self.dateTimeTags[self.x].getText() + self.dateTimeTags[self.y].getText()
+                    print(self.dateTime)
+                    self.x = self.x + 7
+                    self.y = self.y + 7
+                else:
+                    break
 

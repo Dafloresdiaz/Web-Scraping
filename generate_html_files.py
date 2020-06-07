@@ -29,15 +29,18 @@ class generate_html_files:
 
                 #After we have the local files que need to work with them
                 self.results_Local = self.html_Content.get_Local_Content(str(i)).find_all('div', class_='responsive-table')
+                for i in range(int(len(self.results_Local))):
+                    self.results_Local[1].find_all('td', class_='zentriert hauptlink')
+                    for y in range(int(len(self.results_Local))):
+                        print(y)
 
                 #Call the function to obtain the info from from pages
-                self.section.obtain_Date(self.results_Local)
-                self.section.obtain_Time(self.results_Local)
                 self.section.obtain_Home_Team_Name(self.results_Local)
                 self.section.obtain_Vistit_Team_Name(self.results_Local)
                 self.section.obtain_Game_Plan(self.results_Local)
                 self.section.obtain_Coach(self.results_Local)
                 self.section.obtain_Score(self.results_Local)
+                self.section.obtainAllInfo(self.results_Local)
 
             else:
                 #print("File does not exist")
