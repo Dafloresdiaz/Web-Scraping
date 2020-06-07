@@ -23,3 +23,10 @@ class create_queries:
         if result == 0:
             self.querie.execute("INSERT INTO teams(team_Name) VALUES('%s')" % (teamName))
             self.connection.commit()
+
+    def insert_game_plan(self, planStrategy):
+        self.querie.execute("SELECT COUNT(*) FROM game_plan WHERE gamePlan = '%s'" % (planStrategy))
+        result = self.querie.fetchone()[0]
+        if result == 0:
+            self.querie.execute("INSERT INTO game_plan(gamePlan) VALUES('%s')" % (planStrategy))
+            self.connection.commit()

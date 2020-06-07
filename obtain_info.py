@@ -76,13 +76,15 @@ class obtain_info_from_sections:
 
     #Obtain the Game plan
     def obtain_Game_Plan(self, results):
+         self.x = 0
          for i in range(int(len(results))):
             self.gamePlan = results[i].find_all('td', class_='zentriert')
-            self.w = 5
-            for gamePlanID in range(int(len(self.gamePlan))):
-                if self.w < int(len(self.gamePlan)):
-                    self.text_Game_Plan = self.gamePlan[self.w].getText()
-                    self.w = self.w + 7
+            self.x = 5
+            for _ in range(int(len(self.gamePlan))):
+                if self.x < int(len(self.gamePlan)):
+                    self.text_Game_Plan = self.gamePlan[self.x].getText()
+                    self.database.insert_game_plan(self.text_Game_Plan)
+                    self.x = self.x + 7
                 else:
                     break
     
