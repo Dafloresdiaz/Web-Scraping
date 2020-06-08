@@ -29,10 +29,9 @@ class generate_html_files:
 
                 #After we have the local files que need to work with them
                 self.results_Local = self.html_Content.get_Local_Content(str(i)).find_all('div', class_='responsive-table')
-                for i in range(int(len(self.results_Local))):
-                    self.results_Local[1].find_all('td', class_='zentriert hauptlink')
-                    for y in range(int(len(self.results_Local))):
-                        print(y)
+                self.firstTable = self.results_Local[0].find_all('thead')
+                if int(len(self.firstTable)) == 0:
+                    print("estas en la ultima tabla")
 
                 #Call the function to obtain the info from from pages
                 self.section.obtain_Home_Team_Name(self.results_Local)
