@@ -13,33 +13,33 @@ class obtain_info_from_sections:
         self.x = 0
         self.y = 0
 
-    def obtain_Date(self, results):
-        #The table can be read it by manual calculation, if you go to the *.html, the td where the 
-        #data is storage the posistion is updated by 7
-        # * With this code you can obtain the date of the game, the range is the next one 1, 8, 15
-        for i in range(int(len(results))):
-            self.date = results[i].find_all('td', class_='zentriert')
-            self.x = 1
-            for _ in range(int(len(self.date))):
-                if self.x < int(len(self.date)):
-                    self.text = self.date[self.x].getText()
-                    # ! The range is always 1 + 7 = 8 this equal to the next field
-                    self.x = self.x + 7
-                else:
-                    break
-
-    def obtain_Time(self, results):
-         #The table can be read it by manual calculation, if you go to the *.html, the td where the 
-        #data is storage the posistion is updated by 7
-        for i in range(int(len(results))):
-            self.time = results[i].find_all('td', class_='zentriert')
-            self.x = 2
-            for _ in range(int(len(self.time))):
-                if self.x < int(len(self.time)):
-                    self.text_Time = self.time[self.x].getText()
-                    self.x = self.x + 7
-                else:
-                    break
+#    def obtain_Date(self, results):
+#        #The table can be read it by manual calculation, if you go to the *.html, the td where the 
+#        #data is storage the posistion is updated by 7
+#        # * With this code you can obtain the date of the game, the range is the next one 1, 8, 15
+#        for i in range(int(len(results))):
+#            self.date = results[i].find_all('td', class_='zentriert')
+#            self.x = 1
+#            for _ in range(int(len(self.date))):
+#                if self.x < int(len(self.date)):
+#                    self.text = self.date[self.x].getText()
+#                    # ! The range is always 1 + 7 = 8 this equal to the next field
+#                    self.x = self.x + 7
+#                else:
+#                    break
+#
+#    def obtain_Time(self, results):
+#         #The table can be read it by manual calculation, if you go to the *.html, the td where the 
+#        #data is storage the posistion is updated by 7
+#        for i in range(int(len(results))):
+#            self.time = results[i].find_all('td', class_='zentriert')
+#            self.x = 2
+#            for _ in range(int(len(self.time))):
+#                if self.x < int(len(self.time)):
+#                    self.text_Time = self.time[self.x].getText()
+#                    self.x = self.x + 7
+#                else:
+#                    break
     
     #obtain the home team name
     def obtain_Home_Team_Name(self, results):
@@ -117,9 +117,9 @@ class obtain_info_from_sections:
             self.y = 2
             for _ in range(int(len(self.dateTimeTags))):
                 if (self.x < int(len(self.dateTimeTags))) and (self.y < int(len(self.dateTimeTags))):
-                    self.date = self.dateTimeTags[self.x].getText()
-                    self.dateTime = self.dateTimeTags[self.x].getText() + self.dateTimeTags[self.y].getText()
-                    print(self.dateTime)
+                    dateTime = self.dateTimeTags[self.x].getText() + " " +self.dateTimeTags[self.y].getText()
+                    dateForSQL = dt.strptime(dateTime, '%a %b %d, %Y %I:%M %p')
+                    print(dateForSQL)
                     self.x = self.x + 7
                     self.y = self.y + 7
                 else:
