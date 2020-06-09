@@ -29,10 +29,7 @@ class generate_html_files:
 
                 #After we have the local files que need to work with them
                 self.results_Local = self.html_Content.get_Local_Content(str(i)).find_all('div', class_='responsive-table')
-                self.firstTable = self.results_Local[0].find_all('thead')
-                if int(len(self.firstTable)) == 0:
-                    print("estas en la ultima tabla")
-
+                
                 #Call the function to obtain the info from from pages
                 self.section.obtain_Home_Team_Name(self.results_Local)
                 self.section.obtain_Vistit_Team_Name(self.results_Local)
@@ -46,6 +43,10 @@ class generate_html_files:
                 
                 #Find the element for the table, it would be the DIV element
                 self.results = self.html_Content.get_Content(str(i)).find_all('div', class_='responsive-table')
+
+                checkFirstTable = self.results[0].find_all('thead')
+                if int(len(checkFirstTable)) == 0:
+                    self.results = self.results[1:]
         
                 #Created a HTML file with the results from the results, this results have the table with the info
                 create_file = open('Results_Page_Content'+ str(i) + '.html', 'w')
