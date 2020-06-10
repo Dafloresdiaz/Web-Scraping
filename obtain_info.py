@@ -113,9 +113,11 @@ class obtain_info_from_sections:
         self.y = 0
         listDate = []
         listHomeTeam = []
+        listVisitTeam = []
         for i in range(int(len(results))):
             dateTimeTags = results[i].find_all('td', class_='zentriert')
             homeTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
+            visitTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
             self.x = 1
             self.y = 2
             for i in range(int(len(dateTimeTags))):
@@ -137,4 +139,17 @@ class obtain_info_from_sections:
                     self.x = self.x + 4
                 else:
                     break
+
+            self.x = 3
+            for i in range(int(len(visitTeam))):
+                y = 0
+                if self.x < int(len(visitTeam)):
+                    text_Visit_Team = visitTeam[self.x].getText()
+                    listVisitTeam.insert(y, text_Visit_Team)
+                    print(listVisitTeam)
+                    self.x += 4
+                    y += 1
+                else:
+                    break
+
 
