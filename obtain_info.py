@@ -111,17 +111,30 @@ class obtain_info_from_sections:
     def obtainAllInfo(self, results):
         self.x = 0
         self.y = 0
+        listDate = []
+        listHomeTeam = []
         for i in range(int(len(results))):
-            self.dateTimeTags = results[i].find_all('td', class_='zentriert')
+            dateTimeTags = results[i].find_all('td', class_='zentriert')
+            homeTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
             self.x = 1
             self.y = 2
-            for _ in range(int(len(self.dateTimeTags))):
-                if (self.x < int(len(self.dateTimeTags))) and (self.y < int(len(self.dateTimeTags))):
-                    dateTime = self.dateTimeTags[self.x].getText() + " " +self.dateTimeTags[self.y].getText()
+            for i in range(int(len(dateTimeTags))):
+                if (self.x < int(len(dateTimeTags))) and (self.y < int(len(dateTimeTags))):
+                    dateTime = dateTimeTags[self.x].getText() + " " +dateTimeTags[self.y].getText()
                     dateForSQL = dt.strptime(dateTime, '%a %b %d, %Y %I:%M %p')
-                    print(dateForSQL)
+                    dateString = dateForSQL.strftime('%Y-%m-%d %H:%M:%S')
+                    listDate.insert(i, dateString)
                     self.x = self.x + 7
                     self.y = self.y + 7
+                else:
+                    break
+
+            self.x = 1
+            for i in range(int(len(homeTeam))):
+                if self.x < int(len(homeTeam)):
+                    text_Home_Team = homeTeam[self.x].getText()
+                    listHomeTeam.insert(i, text_Home_Team)
+                    self.x = self.x + 4
                 else:
                     break
 

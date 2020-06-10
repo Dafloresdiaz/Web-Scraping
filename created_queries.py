@@ -11,6 +11,7 @@ class create_queries:
         self.querie = self.connection.cursor()
 
     def insert_coaches(self, coachName):
+        #This first query is to obtain if the coacha name is already in the table
         self.querie.execute("SELECT COUNT(*) FROM coaches WHERE coach_Name = '%s'" % (coachName))
         result = self.querie.fetchone()[0]
         if result == 0:
@@ -33,3 +34,8 @@ class create_queries:
             if result == 0:
                 self.querie.execute("INSERT INTO game_plan(gamePlan) VALUES('%s')" % (wotSpaces))
                 self.connection.commit()
+
+    def insert_all_info(self, homeTeam, visitTeam, score, dateTime, coach, plan):
+        self.querie.execute("INSERT INTO complte_info(id_home_team, id_visit_team, score, date_time, id_coach, id_plan) VALUES('%i', '%i', '%s', '%s', '%i', '%i')" % (homeTeam, visitTeam, score, dateTime, coach, plan))
+        self.connection.commit()
+
