@@ -111,6 +111,9 @@ class obtain_info_from_sections:
     def obtainAllInfo(self, results):
         self.x = 0
         self.y = 0
+        positionForDateTime = 0
+        positionForHomeTeam = 0
+        positionForVisitTeam = 0
         listDate = []
         listHomeTeam = []
         listVisitTeam = []
@@ -125,31 +128,31 @@ class obtain_info_from_sections:
                     dateTime = dateTimeTags[self.x].getText() + " " +dateTimeTags[self.y].getText()
                     dateForSQL = dt.strptime(dateTime, '%a %b %d, %Y %I:%M %p')
                     dateString = dateForSQL.strftime('%Y-%m-%d %H:%M:%S')
-                    listDate.insert(i, dateString)
+                    listDate.insert(positionForDateTime, dateString)
                     self.x = self.x + 7
                     self.y = self.y + 7
+                    positionForDateTime += 1
                 else:
                     break
 
-            self.x = 1
+            x = 1
             for i in range(int(len(homeTeam))):
-                if self.x < int(len(homeTeam)):
-                    text_Home_Team = homeTeam[self.x].getText()
-                    listHomeTeam.insert(i, text_Home_Team)
-                    self.x = self.x + 4
-                else:
-                    break
+                if x < int(len(homeTeam)):
+                    textHome = homeTeam[x].getText()
+                    listHomeTeam.insert(positionForHomeTeam, textHome)
+                    x += 4
+                    positionForHomeTeam += 1
 
-            self.x = 3
+            x = 3
             for i in range(int(len(visitTeam))):
-                y = 0
-                if self.x < int(len(visitTeam)):
-                    text_Visit_Team = visitTeam[self.x].getText()
-                    listVisitTeam.insert(y, text_Visit_Team)
-                    print(listVisitTeam)
-                    self.x += 4
-                    y += 1
+                if x < int(len(visitTeam)):
+                    textVisit = visitTeam[x].getText()
+                    listVisitTeam.insert(positionForVisitTeam, textVisit)
+                    x += 4
+                    positionForVisitTeam += 1
                 else:
                     break
+        
+        print(listVisitTeam[0])
 
 
