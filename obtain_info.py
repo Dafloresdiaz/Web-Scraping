@@ -155,4 +155,3 @@ class obtain_info_from_sections:
         
         print(listVisitTeam[0])
 
-
