@@ -2,6 +2,7 @@
 #In this case we can obtain the info from the pages like, date, time of the match,
 #Home team, Visitors team and the results
 #The main goal is to obtain the correct info from the html page
+import itertools
 
 from datetime import datetime as dt
 from created_queries import create_queries as CQ
@@ -111,16 +112,30 @@ class obtain_info_from_sections:
     def obtainAllInfo(self, results):
         self.x = 0
         self.y = 0
+
         positionForDateTime = 0
         positionForHomeTeam = 0
         positionForVisitTeam = 0
+        positionScoreMatch = 0
+        positionCoachName = 0
+        positionPlanGame = 0
+
         listDate = []
         listHomeTeam = []
         listVisitTeam = []
+        listScoreMatch = []
+        listCoachName = []
+        listPlanGame = []
+
         for i in range(int(len(results))):
+            
             dateTimeTags = results[i].find_all('td', class_='zentriert')
             homeTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
             visitTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
+            scoreMatch = results[i].find_all('a', title = 'Match report')
+            coachName = results[i].find_all('a', id= '0')
+            planGame = results[i].find_all('td', class_='zentriert')
+            
             self.x = 1
             self.y = 2
             for i in range(int(len(dateTimeTags))):
@@ -152,6 +167,38 @@ class obtain_info_from_sections:
                     positionForVisitTeam += 1
                 else:
                     break
-        
-        print(listVisitTeam[0])
+
+            x = 0
+            for i in range(len(scoreMatch)):
+                if x < int(len(scoreMatch)):
+                    textScore = scoreMatch[x].getText()
+                    listScoreMatch.insert(positionScoreMatch,textScore)
+                    x += 1
+                    positionScoreMatch += 1
+                else:
+                    break
+            
+            x = 0
+            for i in range(len(coachName)):
+                if x < int(len(coachName)):
+                    textCoach = coachName[x].getText()
+                    listCoachName.insert(positionCoachName,textCoach)
+                    x += 1
+                    positionCoachName += 1
+                else:
+                    break
+            
+            x = 5
+            for i in range(len(planGame)):
+                if x < int(len(planGame)):
+                    textPlanGame = planGame[x].getText()
+                    listPlanGame.insert(positionPlanGame, textPlanGame)
+                    x += 7
+                    positionPlanGame += 1
+                else:
+                    break
+
+        for i in range(len(listDate)):
+            self.database.insert_all_info(listHomeTeam[i], listVisitTeam[i], listScoreMatch[i], listDate[i],listCoachName[i], listPlanGame[i])
+
 

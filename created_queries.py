@@ -36,6 +36,27 @@ class create_queries:
                 self.connection.commit()
 
     def insert_all_info(self, homeTeam, visitTeam, score, dateTime, coach, plan):
-        self.querie.execute("INSERT INTO complte_info(id_home_team, id_visit_team, score, date_time, id_coach, id_plan) VALUES('%i', '%i', '%s', '%s', '%i', '%i')" % (homeTeam, visitTeam, score, dateTime, coach, plan))
+
+        #Home Team ID
+        self.querie.execute("SELECT id FROM teams WHERE team_Name = '%s'" % (homeTeam))
+        idHomeTeam = self.querie.fetchone()[0]
+        #idVisitTeam
+        self.querie.execute("SELECT id FROM teams WHERE team_Name = '%s'" % (visitTeam))
+        idVisitTeam = self.querie.fetchone()[0]
+        #idCoaches
+        if coach != None:
+            self.querie.execute("SELECT id FROM coaches WHERE coach_Name = '%s' " % (coach))
+            idCoach = self.querie.fetchone()[0]
+        else:
+            idCoach = None
+        #idPlan
+        if plan != '?' or plan != None:
+            self.querie.execute("SELECT id FROM game_plan WHERE gamePlan = '%s' " % (plan))
+            idPlan = self.querie.fetchone()[0]
+        else:
+            idPlan = None
+            
+
+        self.querie.execute("INSERT INTO complete_info(id_home_team, id_visit_team, score, date_time, id_coach, id_plan) VALUES('%i', '%i', '%s', '%s', '%i', '%i')" % (idHomeTeam, idVisitTeam, score, dateTime, idCoach, idPlan))
         self.connection.commit()
 

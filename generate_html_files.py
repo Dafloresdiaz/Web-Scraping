@@ -22,13 +22,14 @@ class generate_html_files:
         print("Process to obtain the HTML files:")
 
         for i in tqdm(range(start_year, end_year)):
-            print("", end='\r')
+            #print("", end='\r')
 
             if os.path.isfile("Results_page_Content" + str(i) + ".html"):
                 #print("File exist")
 
                 #After we have the local files que need to work with them
                 self.results_Local = self.html_Content.get_Local_Content(str(i)).find_all('div', class_='responsive-table')
+                
                 
                 #Call the function to obtain the info from from pages
                 self.section.obtain_Home_Team_Name(self.results_Local)
