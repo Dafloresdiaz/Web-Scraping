@@ -199,6 +199,16 @@ class obtain_info_from_sections:
                     break
 
         for i in range(len(listDate)):
-            self.database.insert_all_info(listHomeTeam[i], listVisitTeam[i], listScoreMatch[i], listDate[i],listCoachName[i], listPlanGame[i])
+            try:
+                coachNameForDB = listCoachName[i]
+            except IndexError:
+                coachNameForDB = 'No Coach'
+
+            try:
+                planNameForDB = listPlanGame[i]
+            except IndexError:
+                planNameForDB = 'No Plan'
+
+            self.database.insert_all_info(listHomeTeam[i], listVisitTeam[i], listScoreMatch[i], listDate[i], coachNameForDB, planNameForDB)
 
 
