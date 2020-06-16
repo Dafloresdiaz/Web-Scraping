@@ -46,13 +46,17 @@ class create_queries:
         #idCoaches
         self.querie.execute("SELECT id FROM coaches WHERE coach_Name = '%s' " % (coach))
         idCoach = self.querie.fetchone()[0]
-        
+
         #idPlan
         if plan == '?':
             plan = 'No Plan'
-        self.querie.execute("SELECT id FROM game_plan WHERE gamePlan = '%s' " % (plan))
-        idPlan = self.querie.fetchone()[0]
+
+        try:
+            self.querie.execute("SELECT id FROM game_plan WHERE gamePlan = '%s' " % (plan))
+            idPlan = self.querie.fetchone()[0]
+        except TypeError:
+            idPlan = 100
+
 
         self.querie.execute("INSERT INTO complete_info(id_home_team, id_visit_team, score, date_time, id_coach, id_plan) VALUES('%i', '%i', '%s', '%s', '%i', '%i')" % (idHomeTeam, idVisitTeam, score, dateTime, idCoach, idPlan))
         self.connection.commit()
-

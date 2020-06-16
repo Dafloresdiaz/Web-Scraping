@@ -132,7 +132,7 @@ class obtain_info_from_sections:
             dateTimeTags = results[i].find_all('td', class_='zentriert')
             homeTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
             visitTeam = results[i].find_all('a', class_='vereinprofil_tooltip')
-            scoreMatch = results[i].find_all('a', title = 'Match report')
+            scoreMatch = results[i].find_all('a', title = ['Match report', 'Match preview'])
             coachName = results[i].find_all('a', id= '0')
             planGame = results[i].find_all('td', class_='zentriert')
             
@@ -199,15 +199,16 @@ class obtain_info_from_sections:
                     break
 
         for i in range(len(listDate)):
-            try:
-                coachNameForDB = listCoachName[i]
-            except IndexError:
-                coachNameForDB = 'No Coach'
 
             try:
                 planNameForDB = listPlanGame[i]
             except IndexError:
-                planNameForDB = 'No Plan'
+                planNameForDB = listPlanGame[i]
+
+            try:
+                coachNameForDB = listCoachName[i]
+            except IndexError:
+                coachNameForDB = 'No Coach'
 
             self.database.insert_all_info(listHomeTeam[i], listVisitTeam[i], listScoreMatch[i], listDate[i], coachNameForDB, planNameForDB)
 
