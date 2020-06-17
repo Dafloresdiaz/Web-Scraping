@@ -8,4 +8,4 @@ This is my first time using python for a project.
 ### The data is from ten years, 2010 to 2020:
   - Becasue the mexican league is suspended the data from the last season is not complete. But is just necessary to run the       code and the database will have the lasta data
 ### These are the tables and the simple desing for the database:
-(image)
+![](Images/Design_DB.png)
